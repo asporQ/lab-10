@@ -12,7 +12,7 @@ int main()
 	cout << "Enter amount you can pay per year: ";
 	cin >> payment;
 
-	int year=1;
+	int year = 1;
 	double interest, newBalance = loan, total;
 	interest = loan * (rate / 100);
 	total = newBalance + interest;
@@ -27,8 +27,13 @@ int main()
 	cout << "\n";
 
 	cout << fixed << setprecision(2);
-	while(payment>0){
-		cout<<setw(13) << left << year;
+	while (loan > 0)
+	{
+		if(loan<=payment){
+			payment = total;
+			newBalance = 0;
+		}
+		cout << setw(13) << left << year;
 		cout << setw(13) << left << loan;
 		cout << setw(13) << left << interest;
 		cout << setw(13) << left << total;
@@ -38,11 +43,13 @@ int main()
 		loan = newBalance;
 		interest = newBalance * (rate / 100);
 		total = newBalance + interest;
-		if(total < payment){
+
+		year++;
+		if (newBalance < payment)
+		{
 			payment = total;
 		}
 		newBalance = total - payment;
-		year++;
 	}
 	return 0;
 }
